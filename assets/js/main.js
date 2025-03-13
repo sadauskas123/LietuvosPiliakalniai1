@@ -6,23 +6,41 @@
 
 (function($) {
 	
-	document.addEventListener('DOMContentLoaded', function() {
-        document.querySelectorAll('.image.thumb').forEach(function(imageLink) {
-            imageLink.addEventListener('click', function(e) {
-                e.preventDefault(); // Sustabdyti nuorodos numatytą veiksmą
+document.addEventListener('DOMContentLoaded', function() {
+    var audioPlayer = document.getElementById('audioPlayer'); // Audio elementas
+    var closerButton = document.querySelector('.poptrox-popup .closer'); // Uždarymo mygtukas
 
-                // Gauti garso failą, kurį nurodome 'data-audio' atribute
-                var audioSrc = imageLink.getAttribute('data-audio');
-                
-                // Pasirinkti audio elementą ir nustatyti jo src atributą
-                var audioPlayer = document.getElementById('audioPlayer');
+    // Patikrinti, jei mygtukas egzistuoja
+    if (closerButton) {
+        closerButton.addEventListener('click', function() {
+            // Jei garsas groja, sustabdyti
+            if (!audioPlayer.paused) {
+                audioPlayer.pause();
+                audioPlayer.currentTime = 0; // Jei norite, kad garsas pradėtų nuo pradžios
+            }
+        });
+    }
+
+    // Paspaudus nuotrauką su garsą atkurianti funkcija
+    document.querySelectorAll('.image.thumb').forEach(function(imageLink) {
+        imageLink.addEventListener('click', function(e) {
+            e.preventDefault(); // Sustabdyti nuorodos numatytą veiksmą
+
+            var audioSrc = imageLink.getAttribute('data-audio');
+            
+            // Patikrinti, ar audio jau groja ir tas pats failas
+            if (audioPlayer.src === audioSrc && !audioPlayer.paused) {
+                // Jei garsas jau groja ir tas pats failas, sustabdyti
+                audioPlayer.pause();
+                audioPlayer.currentTime = 0; // Jei norite, kad garsas pradėtų nuo pradžios
+            } else {
+                // Jei garsas neveikia arba kitas failas, nustatyti naują src ir pradėti groti
                 audioPlayer.src = audioSrc;
-                
-                // Paleisti garso įrašą
                 audioPlayer.play();
-            });
+            }
         });
     });
+});
 
 	var $window = $(window),
 		$body = $('body'),
