@@ -5,6 +5,24 @@
 */
 
 (function($) {
+	
+	document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.image.thumb').forEach(function(imageLink) {
+            imageLink.addEventListener('click', function(e) {
+                e.preventDefault(); // Sustabdyti nuorodos numatytą veiksmą
+
+                // Gauti garso failą, kurį nurodome 'data-audio' atribute
+                var audioSrc = imageLink.getAttribute('data-audio');
+                
+                // Pasirinkti audio elementą ir nustatyti jo src atributą
+                var audioPlayer = document.getElementById('audioPlayer');
+                audioPlayer.src = audioSrc;
+                
+                // Paleisti garso įrašą
+                audioPlayer.play();
+            });
+        });
+    });
 
 	var $window = $(window),
 		$body = $('body'),
