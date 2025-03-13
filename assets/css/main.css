@@ -1814,6 +1814,7 @@ input, select, textarea {
 
 		.image.thumb {
 			text-align: center;
+			position: relative;
 		}
 
 			.image.thumb:after {
