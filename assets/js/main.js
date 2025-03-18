@@ -1,4 +1,3 @@
-
 (function($) {
 
 	var $window = $(window),
@@ -15,7 +14,6 @@
 				parallaxFactor: 20
 
 		};
-
 	// Breakpoints.
 		breakpoints({
 			xlarge:  [ '1281px',  '1800px' ],
